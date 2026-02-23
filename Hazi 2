@@ -1,0 +1,75 @@
+#include <stdio.h>
+
+int main() {
+    // Egész számok összege 1től 100ig
+    printf("---Egész számok összege 1től 100ig:---\n");
+    int osszeg =0;
+    for(int i =0; i<=100; i++)
+    {
+        osszeg += i;
+    }
+    printf ("%d\n", osszeg);
+    
+    // 3-nak vagy 5-nek többszörösei
+    printf("\n\n---3-nak vagy 5-nek többszörösei:---\n");
+    for(int i =1; i<1000; i++)
+    {
+        if(i%3==0 || i%5==0) printf(" %d ",i);
+    }
+    
+    // 4-gyel osztható
+    printf("\n\n---4-gyel osztható:---\n");
+    int szam = 0;
+    while(szam <1)
+    {
+        printf("Add meg mennyi számmal akarsz dolgozni(pozitív): ");
+        scanf("%d",&szam);
+    }
+    int a =0;
+    for(int i =1;i>-1;i++)
+    {
+        if(i%4==0)
+        {
+            printf("%d ", i);
+            a++;
+        }
+        if(a==szam) break;
+    }
+    //Páratlan számok visszafelé
+    printf("\n\n---Páratlan számok visszafelé:---\n");
+    int sz=0;
+     while(sz <1)
+    {
+        printf("Add meg mennyi számmal akarsz dolgozni(pozitív): ");
+        scanf("%d",&sz);
+    }
+    for(int i = sz; i >0; i--)
+    {
+        if(i%2!=0) printf("%d ",i);
+    }
+    
+    //1 → 2 → … → n
+    printf("\n\n---1 -> 2 -> ... -> n:---\n");  
+    int c=0;
+     while(c <1)
+    {
+        printf("Add meg mennyi számmal akarsz dolgozni(pozitív): ");
+        scanf("%d",&c);
+    }
+    for(int i = 1; i>0; i++)
+    {
+        printf("%d", i);
+        if(i==c) break;
+        printf(" -> ");
+    }
+    
+    //ASCII táblázat
+    printf("\n\n---ASCII táblázat---\n");
+    for (int i = 32; i <= 126; i++) {
+        printf("%d: %c\n", i, (char)i);
+    }
+    
+    
+    
+    return 0;
+}
