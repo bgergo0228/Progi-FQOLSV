@@ -1,0 +1,174 @@
+//Mario
+#include <stdio.h>
+
+int main() {
+    int magassag=0;
+    printf("Magasság: ");
+    scanf("%d", &magassag);
+    printf("\n");
+
+
+    for (int i = 1; i <= magassag; i++) 
+{
+        
+        for (int j = 0; j < magassag - i; j++) 
+        {
+            printf(" ");
+        }
+
+        for (int j = 0; j < i; j++) 
+        {
+            printf("#");
+        }
+
+        printf("  ");
+
+        for (int j = 0; j < i; j++) 
+        {
+            printf("#");
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+//Gyémánt
+#include <stdio.h>
+
+int main() {
+    int magassag=0;
+    
+    while(1)
+    {
+    printf("Magasság: ");
+    scanf("%d", &magassag);
+    if(magassag%2 !=0 && magassag>0) break;
+    }
+    printf("\n");
+
+    int f = magassag / 2 + 1; 
+    int a = magassag / 2;      
+
+
+    for (int i = 1; i <= f; i++) 
+    {
+        for (int j = 1; j <= f - i; j++){printf(" ");}
+        for (int j = 1; j <= 2 * i - 1; j++){printf("*");}
+        printf("\n");
+    }
+    
+    for (int i = a; i >= 1; i--) 
+    {
+        for (int j = 1; j <= f - i; j++) {printf(" ");}
+        for (int j = 1; j <= 2 * i - 1; j++){printf("*");}
+        printf("\n");
+    }
+    
+    return 0;
+}
+
+
+//Fibonacci
+#include <stdio.h>
+
+
+int fib( int sz)
+{
+    int a=0;
+    int b=1;
+    double c=0;
+    int z = 0;
+    if(sz == 1) 
+    {
+        a =0;
+        return a;
+    }
+    if(sz == 2)
+    {
+        b=1;
+        return b;
+    }
+    else 
+    {
+    for(int i =3; i<=sz; i++)
+    {
+        c = a+b;
+        
+        a= b;
+        b= c;
+    }
+    return c;
+    }
+}
+
+
+int main() {
+   
+   
+   for(int i = 1; i<=100; i++)
+   {
+   printf("\n%.0lf", (double)fib(i));
+   }
+    return 0;
+}
+
+
+//Fibonacci
+#include <stdio.h>
+
+double fibonacci(int n) {
+    if (n <= 0) return 0;
+    if (n == 1) return 0;
+    if (n == 2) return 1;
+
+    double a = 0;
+    double b = 1;
+    double c;
+
+    
+    for (int i = 3; i <= n; i++) {
+        c = a+b;
+        a = b;
+        b = c;
+    }
+    
+    return c;
+}
+
+int main() {
+    
+    for (int i = 1; i <= 100; i++) {
+        printf("%d. >>> %.0lf\n", i, fibonacci(i));
+    }
+
+    return 0;
+}
+
+
+// Legnagyobb osztó
+#include <stdio.h>
+
+int oszto(int n) {
+    if (n <= 1) return 1; 
+
+
+    for(int i = 2; i <= n; i++) {
+        if(n % i == 0) {
+            return n / i;
+        }
+    }
+    
+    return 1;
+}
+
+int main() {
+    
+    for( int i = 1; i <=50; i++)
+    {
+    printf("%d >>> %d\n",i, oszto(i));
+    }
+
+
+    return 0;
+}
