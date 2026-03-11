@@ -1,0 +1,198 @@
+// VALID TRIANGLE
+#include <stdio.h>
+int valid_triangle(float a, float b, float c)
+{
+    if(a+b>c && a+c>b && b+c>a) return 1;
+    else return 0;
+}
+
+int main() {
+    float a=0, b=0, c=0;
+    printf("Add meg a 3szög oldalait: ");
+    scanf("%f %f %f",&a, &b, &c);
+    printf("%d", valid_triangle(a, b, c));
+    
+    return 0;
+}
+
+
+// ISEVEN ISODD
+#include <stdio.h>
+int is_even(int n)
+{
+    if(n%2==0) return 1;
+    else return 0;
+}
+int is_odd(int n)
+{
+    if(n%2==0) return 0;
+    else return 1;
+}
+
+int main() {
+    int n = 1;
+    printf("%d",is_even(n));
+    
+    return 0;
+}
+
+
+// RENDEZETT
+#include <stdio.h>
+int rendezett(int tomb[], int meret)
+{
+    int n = 1;
+    for(int i =1; i< meret; i++)
+    {
+        if(tomb[i]<tomb[i-1]) n=0;
+    }
+    return n;
+}
+
+int main() {
+    
+    int T[5]={6, 45, 322, 344, 465};
+    int meret = 5;
+    printf("%d", rendezett(T, meret));
+    
+    return 0;
+}
+
+// Tömb legkisebb / legnagyobb eleme
+#include <stdio.h>
+int kicsi(int tomb[], int meret)
+{   
+    int n = tomb[0];
+    for(int i =0; i<meret; i++)
+    {
+        if(tomb[i]<n) n=tomb[i];
+    }
+    return n;
+}
+int nagy(int tomb[], int meret)
+{   
+    int n = tomb[0];
+    for(int i =0; i<meret; i++)
+    {
+        if(tomb[i]>n) n=tomb[i];
+    }
+    return n;
+}
+
+int main() {
+    
+    int T[5]={751, 45, 3242, 344, 465};
+    int meret = 5;
+    printf("\n%d", kicsi(T, meret));
+    printf("\n%d", nagy(T, meret));
+    return 0;
+}
+
+-contains() függvény megírása: egy tömbben szerepel-e egy adott elem?
+index() függvény megírása: egy tömbben hol (melyik indexpozíción) szerepel egy adott elem? Ha a tömbben nincs benne az adott elem, akkor a fv.-nek milyen értéket kellene visszaadni?
+Ezek órai munkák voltak, és ha jól emlékszek, nem kell megcsinálni o7.
+
+// FELHŐKARCOLÓ
+#include <stdio.h>
+#include <stdlib.h>
+int karcol(int tomb[], int meret)
+{   
+    int n = 0;
+    for(int i =1; i<meret; i++)
+    {
+        n=n+abs(tomb[i] -tomb[i-1]);
+    }
+    return n;
+}
+
+
+int main() {
+    
+    int T[7]={2, 4, 8, 3, 9, 7, 1};
+    int meret = 7;
+    printf("\n%d", karcol(T, meret));
+    return 0;
+}
+
+
+
+// KIIRATÁS
+// KIIRATÁS
+#include <stdio.h>
+void kiir(int tomb[], int meret)
+{
+   for(int i = 0; i < meret; i++)
+   {
+       printf("%d", tomb[i]);
+       if(i < meret-1) printf(", ");
+   }
+   printf("\n");
+}
+
+int main() {
+    
+    int T[7]={2, 4, 8, 3, 9, 7, 1};
+    int meret = 7;
+    kiir(T,meret);
+    return 0;
+}
+
+//pozitív hozzáállás
+#include <stdio.h>
+#include <stdlib.h>
+
+void csere(int tomb[], int meret)
+{
+    for(int i = 0; i < meret; i++)
+    {
+        if(tomb[i] < 0)
+        {
+            tomb[i] = abs(tomb[i]);
+        }
+    } 
+}
+void ir(int tomb[], int meret)
+{
+    for(int i =0; i< meret; i++)
+    {
+        printf("%d ", tomb[i]);
+    }
+    printf("\n");
+}
+
+
+int main()
+{
+    int T[6] = {74, -13, 47, -10, 4, -32};
+    int meret = 6;
+    ir(T, meret);
+    csere(T, meret);       
+    ir(T, meret);
+    
+    return 0;
+}
+
+//2026
+#include <stdio.h>
+#include <math.h>
+
+int main()
+{
+    int egy= M_PI/M_PI;
+    int ketto = egy+egy;
+    int nulla = egy-egy;
+    int hat = ketto+ketto+ketto;
+    printf("%d%d%d%d", ketto,nulla,ketto,hat);
+    
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
