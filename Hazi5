@@ -1,0 +1,102 @@
+//elválasztó vonal
+#include <stdio.h>
+
+void line(char c, int length)
+{
+    for(int i =0; i<length; i++)
+    {
+        printf("%c",c);
+    }
+    printf("\n");
+}
+
+int main() {
+    printf("hello\n");
+    line('-', 40);
+    printf("world\n");
+
+    return 0;
+}
+
+//karakter utolsó előfordulásának a helye egy sztringben
+#include <stdio.h>
+#include <string.h>
+
+int rfind_char(char *szo, char c) {
+    int hossz = strlen(szo);
+    for (int i=hossz-1; i>=0; i--) {
+        if (szo[i] == c) {
+        return i+1; 
+        }
+    }
+    return -1;
+}
+
+int main() {
+    
+    printf("Abba, b:%d\n", rfind_char("Abba", 'b'));   
+    printf("Abba, a:%d\n", rfind_char("Abba", 'a'));   
+    printf("Abba, x:%d\n", rfind_char("Abba", 'x'));   
+    printf("Aladar, a:%d\n", rfind_char("Aladar", 'a')); 
+
+    return 0;
+}
+
+
+
+//karakter száma egy sztringben
+#include <stdio.h>
+#include <string.h>
+
+int rfind_char(char *szo, char c) {
+    int hossz = strlen(szo);
+    int szam = 0;
+    for (int i=0; i<hossz; i++) {
+        if (szo[i] == c) {
+        szam++; 
+        }
+    }
+    return szam;
+}
+
+int main() {
+    
+    printf("Abba, b:%d\n", rfind_char("Abba", 'b'));   
+    printf("Abba, a:%d\n", rfind_char("Abba", 'a'));   
+    printf("Abba, x:%d\n", rfind_char("Abba", 'x'));   
+    printf("Aladar, a:%d\n", rfind_char("Aladar", 'a')); 
+    printf("Batman, m:%d\n",rfind_char("Batman", 'm'));
+
+    return 0;
+}
+
+//FIZZBUZZ
+#include <stdio.h>
+#include <string.h>
+
+
+
+int main() {
+   for(int i =1; i<=100;i++)
+   {
+       if(i%3==0) printf("fizz");
+       if(i%5==0) printf("buzz");
+       if(i%3!=0 && i%5!=0)printf("%d", i);
+       printf("\n");
+        
+   }
+   return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
