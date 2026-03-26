@@ -1,0 +1,212 @@
+//angol abc
+#include <stdio.h>
+
+char* feltolt(char tomb[]) {
+    for (int i = 0; i < 26; i++) {
+        tomb[i] = 'a' + i;
+    }
+    tomb[26] = '\0';
+    return tomb;
+}
+
+int main() {
+    char tomb[27];
+    char* abc = feltolt(tomb);
+    printf("%s\n", abc);
+    
+    return 0;
+}
+
+// 2 szám összege
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        printf("Hiba! Két paramétert (számot) kell megadni.\n");
+        return 1;
+    }
+
+    int a = atoi(argv[1]);
+    int b = atoi(argv[2]);
+
+    printf("%d\n", a + b);
+
+    return 0;
+}
+
+//tömbről másolat
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int n;
+
+    printf("Hány db számot szeretnél bevinni?\n");
+    scanf("%d", &n);
+
+    int tomb[n];
+    int absz[n];
+    
+    for (int i = 0; i < n; i++) {
+        printf("%d. szám: ", i + 1);
+        scanf("%d", &tomb[i]);
+    }
+
+    for (int i = 0; i < n; i++) 
+    {
+        if (tomb[i] < 0){absz[i] = -tomb[i];} 
+        else{absz[i] = tomb[i];}
+    }
+
+    printf("\nA bevitt számok abszolútértékei: ");
+    for (int i = 0; i < n; i++) 
+    {
+        printf("%d", absz[i]);
+        if (i != n - 1){printf(", ");}
+    }
+    printf("\n");
+
+    printf("A megadott számok: ");
+    for (int i = 0; i < n; i++) 
+    {
+        printf("%d", tomb[i]);
+        if (i != n - 1){printf(", ");}
+    }
+    printf("\n");
+
+    return 0;
+}
+
+//különböző elemek száma
+#include <stdio.h>
+
+int main() {
+    int szam;
+    int volt[100] = {0};
+    int darab = 0;
+
+    printf("Adj meg 0 végjelig egész számokat az [1, 99] intervallumból!\n");
+
+    while (1) {
+        printf("Szám: ");
+        scanf("%d", &szam);
+
+        if (szam == 0) {break;}
+
+        if (szam < 1 || szam > 99) 
+        {
+            printf("Ez a szám kívül esik az elfogadható intervallumon!\n");
+            continue;
+        }
+        if (volt[szam] == 0) 
+        {
+            volt[szam] = 1;
+            darab++;
+        }
+    }
+
+    printf("\n%d db különböző szám lett megadva.\n", darab);
+
+    printf("Ezek (növekvő sorrendben): ");
+    int elso = 1;
+    for (int i = 1; i <= 99; i++) {
+        if (volt[i]) {
+            if (!elso) {
+                printf(", ");
+            }
+            printf("%d", i);
+            elso = 0;
+        }
+    }
+    printf("\n");
+
+    return 0;
+}
+
+
+//megadott leghosszabb szó
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char szo[100];
+    int db = 0;
+    int max = 0;
+
+    printf("Adj meg szavakat '*' végjelig!\n");
+
+    while (1) {
+        printf("Szó: ");
+        fgets(szo, sizeof(szo), stdin);
+        szo[strcspn(szo, "\n")] = '\0';
+        if (strcmp(szo, "*") == 0) {
+            break;
+        }
+
+        if (szo[0] == '*') {
+            continue;
+        }
+
+        int hossz = strlen(szo);
+
+        if (hossz > max) {
+            max = hossz;
+        }
+
+        db++;
+    }
+
+    printf("\n%d db szót adtál meg. A leghosszabb szó %d karakterből áll.\n", db, max);
+
+    return 0;
+}
+
+
+
+//lottó
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+    int n, also, felso;
+
+    printf("Hány db random számot kérsz?\n");
+    scanf("%d", &n);
+
+    printf("Alsó határ: ");
+    scanf("%d", &also);
+
+    printf("Felső határ (zárt intervallum): ");
+    scanf("%d", &felso);
+
+    srand(time(NULL));
+
+    printf("\nA generált számok: ");
+
+    for (int i = 0; i < n; i++) {
+        int r = also + rand() % (felso - also + 1);
+        printf("%d ", r);
+    }
+
+    printf("\n");
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
