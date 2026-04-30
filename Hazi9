@@ -1,0 +1,245 @@
+//fájlban lévő egészek rendezése (416h)
+#include <stdio.h>
+#include <stdlib.h>
+int compare(const void *a, const void *b) {
+    return (*(int*)a - *(int*)b);
+}
+
+int main(int argc, char *argv[]) {
+  
+    if (argc != 2) {
+        return 1;
+    }
+
+ 
+    FILE *file = fopen(argv[1], "r");
+    if (file == NULL) {
+        fprintf(stderr, "Hiba! %s\n", argv[1]);
+        return 1;
+    }
+
+   
+    int capacity = 10; 
+    int count = 0;     
+    int *numbers = (int*)malloc(capacity * sizeof(int));
+    
+    if (numbers == NULL) {
+        fprintf(stderr, "Hiba!\n");
+        fclose(file);
+        return 1;
+    }
+
+    int current_number;
+    while (fscanf(file, "%d", &current_number) == 1) {
+        if (count >= capacity) {
+            capacity *= 2;
+            int *temp = (int*)realloc(numbers, capacity * sizeof(int));
+            if (temp == NULL) {
+                fprintf(stderr, "Hiba!\n");
+                free(numbers);
+                fclose(file);
+                return 1;
+            }
+            numbers = temp;
+        }
+        numbers[count] = current_number;
+        count++;
+    }
+
+  
+    fclose(file);
+
+    qsort(numbers, count, sizeof(int), compare);
+    for (int i = 0; i < count; i++) {
+        printf("%d\n", numbers[i]);
+    }
+    free(numbers);
+
+    return 0;
+}
+
+
+//tömb véletlenszerűen kiválasztott eleme (416f)
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int choice(const int n, const int tomb[]) {
+    int rx = rand() % n;
+    return tomb[rx];
+}
+
+int main() {
+    srand(time(NULL));
+
+    int szamok[] = {125, 45, 28, 23, 9, 526, 63, 111, 512, 74, 7, 77, 12};
+    int n = sizeof(szamok) / sizeof(szamok[0]);
+    int k = choice(n, szamok);
+    printf("Random elem: %d\n", k);
+
+    return 0;
+}
+
+
+
+
+
+//shuffle művelet (tömb elemeinek az összekeverése, 416g)
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+void shuffle(int n, int tomb[]) {
+    for (int i = n - 1; i >= 1; i--) {
+        int j = rand() % (i + 1);
+        int temp = tomb[i];
+        tomb[i] = tomb[j];
+        tomb[j] = temp;
+    }
+}
+
+int main() {
+    srand(time(NULL));
+    int li[] = {1, 2, 3, 4, 5, 6, 7, 8};
+    int n = sizeof(li) / sizeof(li[0]);
+
+    printf("Eredeti: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", li[i]);
+    }
+    printf("\n");
+
+    shuffle(n, li);
+
+    printf("Keverve: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", li[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+//kellene egy erős jelszó (411a)
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+void shuffle(int n, char tomb[]) {
+    for (int i = n - 1; i >= 1; i--) {
+        int j = rand() % (i + 1);
+        char temp = tomb[i];
+        tomb[i] = tomb[j];
+        tomb[j] = temp;
+    }
+}
+
+int main() {
+    srand(time(NULL));
+
+    const char kisbetuk[] = "abcdefghijklmnopqrstuvwxyz";
+    const char nagybetuk[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const char szamok[] = "0123456789";
+    const char specialis[] = ".,;'";
+    const char osszes_karakter[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,;'";
+
+    int n_kis = sizeof(kisbetuk) - 1;
+    int n_nagy = sizeof(nagybetuk) - 1;
+    int n_szam = sizeof(szamok) - 1;
+    int n_spec = sizeof(specialis) - 1;
+    int n_osszes = sizeof(osszes_karakter) - 1;
+
+    int hossz = 8 + (rand() % 5);
+
+    char jelszo[13];
+
+    jelszo[0] = kisbetuk[rand() % n_kis];
+    jelszo[1] = nagybetuk[rand() % n_nagy];
+    jelszo[2] = szamok[rand() % n_szam];
+    jelszo[3] = specialis[rand() % n_spec];
+
+    for (int i = 4; i < hossz; i++) {
+        jelszo[i] = osszes_karakter[rand() % n_osszes];
+    }
+
+    jelszo[hossz] = '\0';
+    shuffle(hossz, jelszo);
+    printf("%s\n", jelszo);
+
+    return 0;
+}
+
+
+
+//leghosszabb sor (424a)
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 4) {
+        return 1;
+    }
+
+    int sorok_szama = atoi(argv[1]);
+    int min_hossz = atoi(argv[2]);
+    int max_hossz = atoi(argv[3]);
+
+    if (min_hossz > max_hossz || min_hossz <= 0) {
+        fprintf(stderr, "Hiba!\n");
+        return 1;
+    }
+    
+    srand(time(NULL));
+
+    for (int i = 0; i < sorok_szama; i++) {
+        int hossz = min_hossz + rand() % (max_hossz - min_hossz + 1);
+        
+        for (int j = 0; j < hossz; j++) {
+            char c;
+            if (j == hossz - 1) {
+                c = 33 + rand() % (126 - 33 + 1);
+            } else {
+                c = 32 + rand() % (126 - 32 + 1);
+            }
+            printf("%c", c);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+
+
+//Legrövidebb szavak (409a)
+#include <stdio.h>
+#include <string.h>
+
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        return 1;
+    }
+    size_t min_hossz = strlen(argv[1]);
+    
+    for (int i = 2; i < argc; i++) {
+        size_t aktualis_hossz = strlen(argv[i]);
+        if (aktualis_hossz < min_hossz) {
+            min_hossz = aktualis_hossz;
+        }
+    }
+
+    for (int i = 1; i < argc; i++) {
+        if (strlen(argv[i]) == min_hossz) {
+            printf("%s\n", argv[i]);
+        }
+    }
+
+    return 0;
+}
+
+
+
+
+
+
