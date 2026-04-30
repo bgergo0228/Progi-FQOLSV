@@ -1,0 +1,179 @@
+//Írja meg a my_strfry() eljárást. Ez kap egy sztringet, amiben a karaktereket összekeveri....
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+void my_strfry(char *str) {
+    if (str == NULL) {
+        return;
+    }
+
+    int n = strlen(str);
+    if (n <= 1) {
+        return;
+    }
+
+    for (int i = n - 1; i >= 1; i--) {
+        int j = rand() % (i + 1);
+        char temp = str[i];
+        str[i] = str[j];
+        str[j] = temp;
+    }
+}
+
+int main() {
+    srand(time(NULL));
+    char szoveg[] = "Batman has mastered over 127 forms of martial arts and can speak over 40 languages";
+    
+    printf("Eredeti: %s\n", szoveg);
+    my_strfry(szoveg);
+
+    printf("Kevert:  %s\n", szoveg);
+
+    return 0;
+}
+
+
+
+//PTI-s hallgatók (125b)
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+int compare_strings(const void *a, const void *b) {
+    return strcmp((const char *)a, (const char *)b);
+}
+
+int main() {
+    FILE *file = fopen("nevek.csv", "r");
+    if (file == NULL) {
+        fprintf(stderr, "Hiba!\n");
+        return 1;
+    }
+    char pti_names[100][50]; 
+    int count = 0;
+
+    char line[256];
+    while (fgets(line, sizeof(line), file)) {
+        line[strcspn(line, "\r\n")] = '\0';
+        char *nev = strtok(line, ",");
+        char *eletkor = strtok(NULL, ","); 
+        char *szak = strtok(NULL, ",");
+
+        if (nev != NULL && szak != NULL) {
+            char szak_nagybetus[10];
+            int i;
+            for (i = 0; szak[i] != '\0' && i < 9; i++) {
+                szak_nagybetus[i] = toupper(szak[i]);
+            }
+            szak_nagybetus[i] = '\0';
+
+            if (strcmp(szak_nagybetus, "PTI") == 0) {
+                strncpy(pti_names[count], nev, 49);
+                pti_names[count][49] = '\0'; 
+                pti_names[count][0] = toupper(pti_names[count][0]);
+                count++;
+            }
+        }
+    }
+
+    fclose(file);
+    qsort(pti_names, count, sizeof(pti_names[0]), compare_strings);
+    for (int i = 0; i < count; i++) {
+        printf("%s", pti_names[i]);
+        if (i < count - 1) {
+            printf(", ");
+        }
+    }
+    printf("\n");
+
+    return 0;
+}
+
+
+
+//hatoslottó (613a)
+#include <stdio.h>
+
+int main() {
+    int c_o = 90;
+    long long c_sz = 996300LL;
+
+    for (int a = 1; a <= 40; a++) {
+        if (c_sz % a != 0) continue; 
+        
+        for (int b = a + 1; b <= 41; b++) {
+            if (c_sz % (a * b) != 0) continue;
+            
+            for (int c = b + 1; c <= 42; c++) {
+                if (c_sz  % (a * b * c) != 0) continue;
+                
+                for (int d = c + 1; d <= 43; d++) {
+                    if (c_sz  % (a * b * c * d) != 0) continue;
+                    
+                    for (int e = d + 1; e <= 44; e++) {
+                        long long r_sz = (long long)a * b * c * d * e;
+                        if (c_sz  % r_sz != 0) continue;
+                        int f = c_sz  / r_sz;
+                        if (f > e && f <= 45) {
+                            if (a + b + c + d + e + f == c_o) {
+                                printf("A nyerőszámok: %d, %d, %d, %d, %d, %d\n", a, b, c, d, e, f);
+                                return 0; 
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    return 0;
+}
+
+
+//szökés Alcatrazból (815k)
+#include <stdio.h>
+
+int main() {
+    int cellak_szama = 600;
+    int ajtok[601] = {0}; 
+    for (int lepes = 1; lepes <= cellak_szama; lepes++) {
+        for (int i = lepes; i <= cellak_szama; i += lepes) {
+            ajtok[i] = !ajtok[i]; 
+        }
+    }
+    for (int i = 1; i <= cellak_szama; i++) {
+        if (ajtok[i] == 1) {
+            printf("%d", i);
+        }
+    }
+    printf("\n\n");
+
+    printf("\n");
+    int elso_elem = 1;
+    for (int i = 1; i <= cellak_szama; i++) {
+        if (ajtok[i] == 1) {
+            if (!elso_elem) {
+                printf(", ");
+            }
+            printf("%d", i);
+            elso_elem = 0;
+        }
+    }
+    printf("\n");
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
