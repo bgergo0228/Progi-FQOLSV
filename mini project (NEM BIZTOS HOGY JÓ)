@@ -1,0 +1,168 @@
+#include <stdio.h>
+#include <string.h>
+
+void print_help() {
+    printf("Használat: codemaker.exe alap.c <A kívánt nyelv> [--stdout]\n");
+    printf("Lehetseges nyelvek: Java Bash C C# Python\n");
+}
+
+int file_exists(const char *filename) {
+    FILE *f = fopen(filename, "r");
+
+    if (f != NULL) {
+        fclose(f);
+        return 1;
+    }
+
+    return 0;
+}
+
+void write_or_stdout(const char *filename, const char *content, int stdout_mode) {
+
+    if (stdout_mode) {
+        printf("A file tartalma ez lenne:\n\n");
+        printf("%s", content);
+        return;
+    }
+
+    if (file_exists(filename)) {
+        printf("Mar letezik ilyen file: %s\n", filename);
+        return;
+    }
+
+    FILE *f = fopen(filename, "w");
+
+    if (f == NULL) {
+        printf("Hiba a file letrehozasakor.\n");
+        return;
+    }
+
+    fprintf(f, "%s", content);
+    fclose(f);
+
+    printf("Letrehozva: %s\n", filename);
+}
+
+void generate_c(int stdout_mode) {
+
+    const char *content =
+        "#include <stdio.h>\n"
+        "int main(){\n"
+        "    printf(\"HELLO\\\\n\");\n"
+        "    return 0;\n"
+        "}\n";
+
+    write_or_stdout("prog.c", content, stdout_mode);
+}
+
+void generate_java(int stdout_mode) {
+
+    const char *content =
+        "public class Main {\n"
+        "    public static void main(String[] args) {\n"
+        "        System.out.println(\"HELLO\");\n"
+        "    }\n"
+        "}\n";
+
+    write_or_stdout("prog.java", content, stdout_mode);
+}
+
+void generate_bash(int stdout_mode) {
+
+    const char *content =
+        "#!/bin/bash\n"
+        "echo \"HELLO\"\n";
+
+    write_or_stdout("prog.sh", content, stdout_mode);
+}
+
+void generate_python(int stdout_mode) {
+
+    const char *content =
+        "print(\"HELLO\")\n";
+
+    write_or_stdout("prog.py", content, stdout_mode);
+}
+
+void generate_csharp(int stdout_mode) {
+
+    const char *content =
+        "using System;\n"
+        "class Program {\n"
+        "    static void Main(string[] args) {\n"
+        "        Console.WriteLine(\"HELLO\");\n"
+        "    }\n"
+        "}\n";
+
+    write_or_stdout("prog.cs", content, stdout_mode);
+}
+
+int main(int argc, char *argv[]) {
+
+    int stdout_mode = 0;
+
+    if (argc < 2) {
+        print_help();
+        return 0;
+    }
+
+    if (argc == 2 && strcmp(argv[1], "help") == 0) {
+        print_help();
+        return 0;
+    }
+
+    if (argc == 2 && strcmp(argv[1], "alap.c") == 0) {
+        print_help();
+        return 0;
+    }
+
+    if (argc == 3 &&
+        strcmp(argv[1], "alap.c") == 0 &&
+        strcmp(argv[2], "help") == 0) {
+
+        print_help();
+        return 0;
+    }
+
+    if (argc == 4 && strcmp(argv[3], "--stdout") == 0) {
+
+        stdout_mode = 1;
+    }
+
+    if ((argc == 3 || argc == 4) &&
+        strcmp(argv[1], "alap.c") == 0) {
+
+        char *nyelv = argv[2];
+
+        if (strcmp(nyelv, "C") == 0) {
+
+            generate_c(stdout_mode);
+
+        } else if (strcmp(nyelv, "Java") == 0) {
+
+            generate_java(stdout_mode);
+
+        } else if (strcmp(nyelv, "Bash") == 0) {
+
+            generate_bash(stdout_mode);
+
+        } else if (strcmp(nyelv, "Python") == 0) {
+
+            generate_python(stdout_mode);
+
+        } else if (strcmp(nyelv, "C#") == 0) {
+
+            generate_csharp(stdout_mode);
+
+        } else {
+
+            printf("Ismeretlen nyelv: %s\n", nyelv);
+            print_help();
+        }
+
+        return 0;
+    }
+
+    print_help();
+    return 0;
+}
