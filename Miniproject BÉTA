@@ -1,0 +1,114 @@
+#include <stdio.h>
+#include <string.h>
+
+void print_help() {
+	printf("Használat: codemaker.exe alap.c <A kívánt nyelv>\n");
+	printf("Lehetseges nyelvek: Java Bash C C# Python\n");
+}
+
+void generate_c() {
+    FILE *f = fopen("prog.c", "w");
+    fprintf(f,
+        "#include <stdio.h>\n"
+        "int main(){\n"
+        "    printf(\"HELLO\\n\");\n"
+        "    return 0;\n"
+        "}\n"
+    );
+    fclose(f);
+    printf("Letrehozva: prog.c\n");
+}
+
+void generate_java() {
+    FILE *f = fopen("prog.java", "w");
+    fprintf(f,
+        "public class Main {\n"
+        "    public static void main(String[] args) {\n"
+        "        System.out.println(\"HELLO\");\n"
+        "    }\n"
+        "}\n"
+    );
+    fclose(f);
+    printf("Letrehozva: prog.java\n");
+}
+
+void generate_bash() {
+    FILE *f = fopen("prog.sh", "w");
+    fprintf(f,
+        "#!/bin/bash\n"
+        "echo \"HELLO\"\n"
+    );
+    fclose(f);
+    printf("Letrehozva: prog.sh\n");
+}
+
+void generate_python() {
+    FILE *f = fopen("prog.py", "w");
+    fprintf(f,
+        "print(\"HELLO\")\n"
+    );
+    fclose(f);
+    printf("Letrehozva: prog.py\n");
+}
+
+void generate_csharp() {
+    FILE *f = fopen("prog.cs", "w");
+    fprintf(f,
+        "using System;\n"
+        "class Program {\n"
+        "    static void Main(string[] args) {\n"
+        "        Console.WriteLine(\"HELLO\");\n"
+        "    }\n"
+        "}\n"
+    );
+    fclose(f);
+    printf("Letrehozva: prog.cs\n");
+}
+
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        print_help();
+        return 0;
+    }
+	
+    if (argc == 2 && strcmp(argv[1], "help") == 0) {
+        print_help();
+        return 0;
+    }
+
+    if (argc == 2 && strcmp(argv[1], "alap.c") == 0) {
+        print_help();
+        return 0;
+    }
+
+    if (argc == 3 &&
+        strcmp(argv[1], "alap.c") == 0 &&
+        strcmp(argv[2], "help") == 0) {
+        print_help();
+        return 0;
+    }
+
+    if (argc == 3 && strcmp(argv[1], "alap.c") == 0) {
+        char *nyelv = argv[2];
+
+        if (strcmp(nyelv, "C") == 0) {
+            generate_c();
+        } else if (strcmp(nyelv, "Java") == 0) {
+            generate_java();
+        } else if (strcmp(nyelv, "Bash") == 0) {
+            generate_bash();
+        } else if (strcmp(nyelv, "Python") == 0) {
+            generate_python();
+        } else if (strcmp(nyelv, "C#") == 0) {
+            generate_csharp();
+        } else {
+            printf("Ismeretlen nyelv: %s\n", nyelv);
+            print_help();
+        }
+        return 0;
+    }
+
+    
+    print_help();
+    return 0;
+}
